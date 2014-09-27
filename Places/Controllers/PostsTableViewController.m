@@ -14,29 +14,42 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 @interface PostsTableViewController () <NSFetchedResultsControllerDelegate>
 
+@property (strong, nonatomic, readwrite) NSFetchRequest *fetchRequest;
 @property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation PostsTableViewController
 
-- (id)initWithFetchRequest:(NSFetchRequest *)theFetchRequest {
-    if (self = [super init]) {
-        _fetchRequest = theFetchRequest;
-        [self setupFetchedResultsController];
+- (NSFetchRequest *)fetchRequest {
+    if (!_fetchRequest) {
+        _fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
+        _fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"message"
+                                                                        ascending:YES]];
     }
-    return self;
+    return _fetchRequest;
 }
 
-- (void)setupFetchedResultsController {
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:_fetchRequest managedObjectContext:[CoreDataManager managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController.delegate = self;
-    [self.fetchedResultsController performFetch:NULL];
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (!_fetchedResultsController) {
+        NSLog(@"%@", self.fetchRequest);
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[self fetchRequest]
+                                                                        managedObjectContext:[CoreDataManager managedObjectContext]
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+        _fetchedResultsController.delegate = self;
+    }
+    return _fetchedResultsController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerClass:[PostTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+}
+
+- (void)reloadData {
+    self.fetchedResultsController = nil;
+    [self.tableView reloadData];
 }
 
 // ================== NSFetchedResultsControllerDelegate ==================

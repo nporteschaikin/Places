@@ -10,11 +10,11 @@
 #import <CoreData/CoreData.h>
 #import "Post.h"
 
-@interface PostsTableViewController : UITableViewController {
-    NSFetchRequest * _fetchRequest;
-    NSFetchedResultsController * _fetchedResultsController;
-}
+@interface PostsTableViewController : UITableViewController
 
-- (id)initWithFetchRequest:(NSFetchRequest *)fetchRequest;
+@property (strong, nonatomic, readonly) NSFetchRequest *fetchRequest;
+@property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
+
+- (void)reloadData;
 
 @end

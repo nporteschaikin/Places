@@ -8,14 +8,14 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "MainViewController.h"
-#import "PinViewController.h"
+#import "HerePostsTableViewController.h"
 #import "CoreDataManager.h"
 
 @interface MainViewController () <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UINavigationController *hereNavigationController;
-@property (strong, nonatomic) PinViewController *herePinViewController;
+@property (strong, nonatomic) HerePostsTableViewController *herePostsTableViewController;
 
 @end
 
@@ -34,24 +34,21 @@
     if (!_hereNavigationController) {
         _hereNavigationController = [[UINavigationController alloc] init];
         _hereNavigationController.tabBarItem.title = @"Here";
-        [_hereNavigationController pushViewController:self.herePinViewController
+        [_hereNavigationController pushViewController:self.herePostsTableViewController
                                              animated:YES];
     }
     return _hereNavigationController;
 }
 
-- (PinViewController *)herePinViewController {
-    if (!_herePinViewController) {
+- (HerePostsTableViewController *)herePostsTableViewController {
+    if (!_herePostsTableViewController) {
         Pin *pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:-40
                                                                           longitude:-70]
                                      inContext:[CoreDataManager managedObjectContext]];
-        _herePinViewController = [[PinViewController alloc] initWithAndPredicate:nil
-                                                             withSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"message"
-                                                                                                                 ascending:NO]]
-                                                          withSectionNameKeyPath:nil
-                                                                          forPin:pin];
+        _herePostsTableViewController = [[HerePostsTableViewController alloc] initWithPin:pin
+                                                                                   radius:20];
     }
-    return _herePinViewController;
+    return _herePostsTableViewController;
 }
 
 - (void)updateLocation {
@@ -70,20 +67,15 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = [locations firstObject];
-    [self updateHerePinViewControllerWithLocation:location];
+    Pin *pin = [Pin findOrCreateByLocation:[locations firstObject]
+                                 inContext:[CoreDataManager managedObjectContext]];
+    
+    [pin reverseGeolocateWithCompletionHandler:^{
+        self.herePostsTableViewController.pin = pin;
+        [self.herePostsTableViewController reloadData]; }];
+    
     [self.locationManager stopUpdatingLocation];
 };
-
-- (void)updateHerePinViewControllerWithLocation:(CLLocation *)location {
-    Post *post = [NSEntityDescription insertNewObjectForEntityForName:@"Post"
-                                               inManagedObjectContext:[CoreDataManager managedObjectContext]];
-    post.message = @"Hello";
-    Pin *pin = [Pin findOrCreateByLocation:location
-                                 inContext:[CoreDataManager managedObjectContext]];
-    post.pin = pin;
-    [self.herePinViewController setPin:pin];
-}
 
 
 @end

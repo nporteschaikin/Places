@@ -20,8 +20,10 @@
 		4FC89A7819D45F3C00F1859A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A7719D45F3C00F1859A /* MainViewController.m */; };
 		4FC89A7A19D45F9F00F1859A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC89A7919D45F9F00F1859A /* CoreLocation.framework */; };
 		4FC89A7D19D4606300F1859A /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A7C19D4606300F1859A /* PostsTableViewController.m */; };
-		4FC89A8019D463E200F1859A /* PinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A7F19D463E200F1859A /* PinViewController.m */; };
+		4FC89A8019D463E200F1859A /* PinPostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A7F19D463E200F1859A /* PinPostsTableViewController.m */; };
 		4FC89A8319D4AABE00F1859A /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A8219D4AABE00F1859A /* PostTableViewCell.m */; };
+		E47E725919D7312B00666EAE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E47E725819D7312B00666EAE /* Default-568h@2x.png */; };
+		E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E47E725B19D735F700666EAE /* HerePostsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,10 +61,13 @@
 		4FC89A7919D45F9F00F1859A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4FC89A7B19D4606300F1859A /* PostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsTableViewController.h; sourceTree = "<group>"; };
 		4FC89A7C19D4606300F1859A /* PostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsTableViewController.m; sourceTree = "<group>"; };
-		4FC89A7E19D463E200F1859A /* PinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinViewController.h; sourceTree = "<group>"; };
-		4FC89A7F19D463E200F1859A /* PinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinViewController.m; sourceTree = "<group>"; };
+		4FC89A7E19D463E200F1859A /* PinPostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPostsTableViewController.h; sourceTree = "<group>"; };
+		4FC89A7F19D463E200F1859A /* PinPostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPostsTableViewController.m; sourceTree = "<group>"; };
 		4FC89A8119D4AABE00F1859A /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
 		4FC89A8219D4AABE00F1859A /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewCell.m; sourceTree = "<group>"; };
+		E47E725819D7312B00666EAE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E47E725A19D735F700666EAE /* HerePostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HerePostsTableViewController.h; sourceTree = "<group>"; };
+		E47E725B19D735F700666EAE /* HerePostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HerePostsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,7 @@
 		4FC89A2D19D45B8300F1859A = {
 			isa = PBXGroup;
 			children = (
+				E47E725819D7312B00666EAE /* Default-568h@2x.png */,
 				4FC89A7919D45F9F00F1859A /* CoreLocation.framework */,
 				4FC89A6719D45D8900F1859A /* CoreData.framework */,
 				4FC89A3819D45B8300F1859A /* Places */,
@@ -176,8 +182,10 @@
 				4FC89A7719D45F3C00F1859A /* MainViewController.m */,
 				4FC89A7B19D4606300F1859A /* PostsTableViewController.h */,
 				4FC89A7C19D4606300F1859A /* PostsTableViewController.m */,
-				4FC89A7E19D463E200F1859A /* PinViewController.h */,
-				4FC89A7F19D463E200F1859A /* PinViewController.m */,
+				4FC89A7E19D463E200F1859A /* PinPostsTableViewController.h */,
+				4FC89A7F19D463E200F1859A /* PinPostsTableViewController.m */,
+				E47E725A19D735F700666EAE /* HerePostsTableViewController.h */,
+				E47E725B19D735F700666EAE /* HerePostsTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FC89A4719D45B8300F1859A /* Images.xcassets in Resources */,
+				E47E725919D7312B00666EAE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +306,8 @@
 				4FC89A3C19D45B8300F1859A /* main.m in Sources */,
 				4FC89A7119D45EAE00F1859A /* Pin.m in Sources */,
 				4FC89A6B19D45DBA00F1859A /* CoreDataManager.m in Sources */,
-				4FC89A8019D463E200F1859A /* PinViewController.m in Sources */,
+				4FC89A8019D463E200F1859A /* PinPostsTableViewController.m in Sources */,
+				E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */,
 				4FC89A8319D4AABE00F1859A /* PostTableViewCell.m in Sources */,
 				4FC89A6119D45B9800F1859A /* Places.xcdatamodeld in Sources */,
 			);
