@@ -21,6 +21,13 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 @implementation PostsTableViewController
 
+- (id)init {
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
 - (NSFetchRequest *)fetchRequest {
     if (!_fetchRequest) {
         _fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
@@ -32,12 +39,12 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        NSLog(@"%@", self.fetchRequest);
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[self fetchRequest]
                                                                         managedObjectContext:[CoreDataManager managedObjectContext]
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
         _fetchedResultsController.delegate = self;
+        [_fetchedResultsController performFetch:NULL];
     }
     return _fetchedResultsController;
 }
@@ -45,6 +52,8 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerClass:[PostTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+    
+    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)reloadData {
@@ -98,16 +107,17 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
     PostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     Post *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [self configureCell:cell
-               withPost:post];
+    [self configureCell:cell withPost:post];
+    
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
     return cell;
 }
 
-- (void)configureCell:(PostTableViewCell *)cell
-             withPost:(Post *)post {
-    NSLog(@"%@", post.message);
+- (void)configureCell:(PostTableViewCell *)cell withPost:(Post *)post {
     cell.messageLabel.text = post.message;
-    cell.userHandleLabel.text = @"NPC";
+    cell.userHandleLabel.text = @"nporteschaikin";
 }
 
 @end
