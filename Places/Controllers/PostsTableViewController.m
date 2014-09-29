@@ -17,6 +17,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 @property (strong, nonatomic, readwrite) NSFetchRequest *fetchRequest;
 @property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic, readwrite) PostImporter *postImporter;
 
 @end
 
@@ -42,6 +43,14 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
         [_fetchedResultsController performFetch:NULL];
     }
     return _fetchedResultsController;
+}
+
+- (PostImporter *)postImporter {
+    if (!_postImporter) {
+        _postImporter = [[PostImporter alloc] init];
+        _postImporter.delegate = self;
+    }
+    return _postImporter;
 }
 
 - (void)viewDidLoad {

@@ -21,7 +21,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[MainViewController alloc] init];
-    
+
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -33,7 +33,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [CoreDataManager saveContext];
+    [[CoreDataManager managedObjectContext] save:NULL];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -45,7 +45,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [CoreDataManager saveContext];
+    [[CoreDataManager managedObjectContext] save:NULL];
 }
 
 @end

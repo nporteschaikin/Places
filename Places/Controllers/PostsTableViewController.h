@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "Post.h"
+#import "PostImporter.h"
 
-@interface PostsTableViewController : UITableViewController
+@interface PostsTableViewController : UITableViewController <ImporterDelegate>
 
 @property (strong, nonatomic, readonly) NSFetchRequest *fetchRequest;
 @property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic, readonly) PostImporter *postImporter;
 
 - (void)reloadData;
 - (void)handleRefreshControl:(id)sender;

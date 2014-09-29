@@ -12,50 +12,7 @@
 @interface CoreDataManager : NSObject
 
 + (NSManagedObjectContext *)managedObjectContext;
-
-+ (NSManagedObjectContext *)backgroundManagedObjectContext;
-
-+ (NSFetchRequest *)fetchRequestFromEntityByName:(NSString *)table
-                                       batchSize:(NSInteger)batchSize;
-
-+ (NSFetchRequest *)fetchRequestFromEntityByName:(NSString *)table
-                              matchedByPredicate:(NSPredicate *)predicate
-                                       batchSize:(NSInteger)batchSize;
-
-+ (NSFetchRequest *)fetchRequestFromEntityByName:(NSString *)table
-                             withSortDescriptors:(NSArray *)sortDescriptors
-                                       batchSize:(NSInteger)batchSize;
-
-+ (NSFetchRequest *)fetchRequestFromEntityByName:(NSString *)table
-                              matchedByPredicate:(NSPredicate *)predicate
-                             withSortDescriptors:(NSArray *)sortDescriptors
-                                       batchSize:(NSInteger)batchSize;
-
-+ (NSArray *)fetchFromEntityByName:(NSString *)table
-                matchedByPredicate:(NSPredicate *)predicate
-               withSortDescriptors:(NSArray *)sortDescriptors
-                         inContext:(NSManagedObjectContext *)context
-                         batchSize:(NSInteger)batchSize;
-
-+ (NSArray *)fetchFromEntityByName:(NSString *)table
-                matchedByPredicate:(NSPredicate *)predicate
-               withSortDescriptors:(NSArray *)sortDescriptors
-                         batchSize:(NSInteger)batchSize;
-
-+ (NSManagedObject *)newObjectInEntityByName:(NSString *)table
-                                   inContext:(NSManagedObjectContext *)context;
-
-+ (NSManagedObject *)newObjectInEntityByName:(NSString *)table;
-
-+ (NSManagedObject *)newObjectInEntityByName:(NSString *)table
-                                  withValues:(NSDictionary *)values
-                                   inContext:(NSManagedObjectContext *)context;
-
-+ (NSManagedObject *)newObjectInEntityByName:(NSString *)table
-                                  withValues:(NSDictionary *)values;
-
-+ (NSError *) saveContext:(NSManagedObjectContext *)context;
-
-+ (NSError *) saveContext;
++ (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
++ (NSManagedObjectModel *)managedObjectModel;
 
 @end

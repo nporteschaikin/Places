@@ -20,6 +20,7 @@
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
     </entity>
@@ -27,9 +28,9 @@
         <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Pin" positionX="-54" positionY="-9" width="128" height="225"/>
-        <element name="Post" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="User" positionX="-45" positionY="36" width="128" height="60"/>
         <element name="Favorite" positionX="-54" positionY="81" width="128" height="60"/>
+        <element name="Pin" positionX="-54" positionY="-9" width="128" height="225"/>
+        <element name="Post" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="User" positionX="-45" positionY="36" width="128" height="60"/>
     </elements>
 </model>

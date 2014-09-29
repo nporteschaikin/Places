@@ -81,7 +81,7 @@
 }
 
 - (void)savePost {
-    Post *post = (Post *)[CoreDataManager newObjectInEntityByName:@"Post"];
+    Post *post = (Post *)[NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:[CoreDataManager managedObjectContext]];
     post.pin = self.pin;
     post.message = self.messageTextView.text;
     
