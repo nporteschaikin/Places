@@ -9,6 +9,7 @@
 #import "PostsTableViewController.h"
 #import "PostTableViewCell.h"
 #import "CoreDataManager.h"
+#import "NSDate+TimeAgo.h"
 
 static NSString * const reuseIdentifier = @"PostTableViewCell";
 
@@ -111,7 +112,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 - (void)configureCell:(PostTableViewCell *)cell withPost:(Post *)post {
     cell.messageLabel.text = post.message;
     cell.userHandleLabel.text = @"nporteschaikin";
-    cell.timeAgoLabel.text = @"3m";
+    cell.timeAgoLabel.text = [post.createdAt timeAgo];
 }
 
 @end

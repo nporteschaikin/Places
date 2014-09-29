@@ -27,6 +27,7 @@
 		E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */; };
 		E4D607E919D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */; };
 		E4D607EC19D903D00044ECF6 /* FavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */; };
+		E4D607F319D983640044ECF6 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607F219D983640044ECF6 /* NSDate+TimeAgo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 		E4D607EA19D903D00044ECF6 /* FavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesTableViewController.h; sourceTree = "<group>"; };
 		E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesTableViewController.m; sourceTree = "<group>"; };
+		E4D607F119D983640044ECF6 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		E4D607F219D983640044ECF6 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,7 @@
 		4FC89A3819D45B8300F1859A /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				E4D607ED19D982EB0044ECF6 /* Categories */,
 				4FC89A7519D45EC000F1859A /* Helpers */,
 				4FC89A6519D45C0F00F1859A /* Controllers */,
 				4FC89A6419D45C0C00F1859A /* Views */,
@@ -212,6 +216,15 @@
 				4FC89A6A19D45DBA00F1859A /* CoreDataManager.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E4D607ED19D982EB0044ECF6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E4D607F119D983640044ECF6 /* NSDate+TimeAgo.h */,
+				E4D607F219D983640044ECF6 /* NSDate+TimeAgo.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +338,7 @@
 				4FC89A7119D45EAE00F1859A /* Pin.m in Sources */,
 				4FC89A6B19D45DBA00F1859A /* CoreDataManager.m in Sources */,
 				4FC89A8019D463E200F1859A /* PinPostsTableViewController.m in Sources */,
+				E4D607F319D983640044ECF6 /* NSDate+TimeAgo.m in Sources */,
 				E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */,
 				4FC89A8319D4AABE00F1859A /* PostTableViewCell.m in Sources */,
 				4FC89A6119D45B9800F1859A /* Places.xcdatamodeld in Sources */,
