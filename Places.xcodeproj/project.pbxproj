@@ -24,6 +24,8 @@
 		4FC89A8319D4AABE00F1859A /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A8219D4AABE00F1859A /* PostTableViewCell.m */; };
 		E47E725919D7312B00666EAE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E47E725819D7312B00666EAE /* Default-568h@2x.png */; };
 		E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E47E725B19D735F700666EAE /* HerePostsTableViewController.m */; };
+		E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */; };
+		E4D607E919D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,10 @@
 		E47E725819D7312B00666EAE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E47E725A19D735F700666EAE /* HerePostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HerePostsTableViewController.h; sourceTree = "<group>"; };
 		E47E725B19D735F700666EAE /* HerePostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HerePostsTableViewController.m; sourceTree = "<group>"; };
+		E4D607E419D8BC7B0044ECF6 /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
+		E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
+		E4D607E719D8EB7A0044ECF6 /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
+		E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,8 @@
 			children = (
 				4FC89A8119D4AABE00F1859A /* PostTableViewCell.h */,
 				4FC89A8219D4AABE00F1859A /* PostTableViewCell.m */,
+				E4D607E719D8EB7A0044ECF6 /* UITextViewWithPlaceholder.h */,
+				E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +194,8 @@
 				4FC89A7F19D463E200F1859A /* PinPostsTableViewController.m */,
 				E47E725A19D735F700666EAE /* HerePostsTableViewController.h */,
 				E47E725B19D735F700666EAE /* HerePostsTableViewController.m */,
+				E4D607E419D8BC7B0044ECF6 /* CreatePostViewController.h */,
+				E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -302,6 +312,7 @@
 				4FC89A7419D45EB400F1859A /* User.m in Sources */,
 				4FC89A3F19D45B8300F1859A /* AppDelegate.m in Sources */,
 				4FC89A7D19D4606300F1859A /* PostsTableViewController.m in Sources */,
+				E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */,
 				4FC89A7819D45F3C00F1859A /* MainViewController.m in Sources */,
 				4FC89A3C19D45B8300F1859A /* main.m in Sources */,
 				4FC89A7119D45EAE00F1859A /* Pin.m in Sources */,
@@ -310,6 +321,7 @@
 				E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */,
 				4FC89A8319D4AABE00F1859A /* PostTableViewCell.m in Sources */,
 				4FC89A6119D45B9800F1859A /* Places.xcdatamodeld in Sources */,
+				E4D607E919D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

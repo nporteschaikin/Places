@@ -16,6 +16,7 @@ static NSString * const longitudeKey = @"pin.longitude";
 
 @dynamic message;
 @dynamic pin;
+@dynamic createdAt;
 
 + (NSFetchRequest *)fetchRequestForPostsWithinRadius:(double)radius
                                                ofPin:(Pin *)pin {
@@ -39,6 +40,11 @@ static NSString * const longitudeKey = @"pin.longitude";
     return [NSPredicate predicateWithFormat:@"(%@ <= %K) AND (%K <= %@) AND (%@ <= %K) AND (%K <= %@)",
                 @(minLongitude), longitudeKey, longitudeKey, @(maxLongitude),
                 @(minLatitude), latitudeKey, latitudeKey, @(maxLatitude)];
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.createdAt = [NSDate date];
 }
 
 @end

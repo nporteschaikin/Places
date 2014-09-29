@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) UILabel *userHandleLabel;
 @property (strong, nonatomic) UILabel *messageLabel;
+@property (strong, nonatomic) UILabel *timeAgoLabel;
 
 @end

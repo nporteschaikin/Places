@@ -12,19 +12,20 @@
         <attribute name="subLocality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subThoroughfare" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thoroughfare" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="pin" inverseEntity="Post" syncable="YES"/>
+        <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" syncable="YES"/>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="posts" inverseEntity="Pin" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="posts" inverseEntity="User" syncable="YES"/>
+        <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
-        <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="user" inverseEntity="Post" syncable="YES"/>
+        <relationship name="posts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" syncable="YES"/>
     </entity>
     <elements>
         <element name="Pin" positionX="-54" positionY="-9" width="128" height="225"/>
-        <element name="Post" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Post" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="User" positionX="-45" positionY="36" width="128" height="60"/>
     </elements>
 </model>

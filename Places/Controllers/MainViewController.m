@@ -13,7 +13,6 @@
 
 @interface MainViewController () <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) UINavigationController *hereNavigationController;
 @property (strong, nonatomic) HerePostsTableViewController *herePostsTableViewController;
 
@@ -21,14 +20,6 @@
 
 @implementation MainViewController
 
-- (CLLocationManager *)locationManager {
-    if (!_locationManager) {
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.delegate = self;
-    }
-    return _locationManager;
-}
 
 - (UINavigationController *)hereNavigationController {
     if (!_hereNavigationController) {
@@ -51,31 +42,10 @@
     return _herePostsTableViewController;
 }
 
-- (void)updateLocation {
-    [self.locationManager startUpdatingLocation];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.locationManager requestWhenInUseAuthorization];
-    [super viewWillAppear:animated];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setViewControllers:@[self.hereNavigationController]];
-    [self updateLocation];
 }
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    Pin *pin = [Pin findOrCreateByLocation:[locations firstObject]
-                                 inContext:[CoreDataManager managedObjectContext]];
-    
-    [pin reverseGeolocateWithCompletionHandler:^{
-        self.herePostsTableViewController.pin = pin;
-        [self.herePostsTableViewController reloadData]; }];
-    
-    [self.locationManager stopUpdatingLocation];
-};
 
 
 @end

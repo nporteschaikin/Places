@@ -21,13 +21,6 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 @implementation PostsTableViewController
 
-- (id)init {
-    if (self = [super init]) {
-        
-    }
-    return self;
-}
-
 - (NSFetchRequest *)fetchRequest {
     if (!_fetchRequest) {
         _fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
@@ -39,7 +32,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[self fetchRequest]
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
                                                                         managedObjectContext:[CoreDataManager managedObjectContext]
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
@@ -53,7 +46,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
     [super viewDidLoad];
     [self.tableView registerClass:[PostTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     
-    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 55.0f;
 }
 
 - (void)reloadData {
@@ -118,6 +111,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 - (void)configureCell:(PostTableViewCell *)cell withPost:(Post *)post {
     cell.messageLabel.text = post.message;
     cell.userHandleLabel.text = @"nporteschaikin";
+    cell.timeAgoLabel.text = @"3m";
 }
 
 @end

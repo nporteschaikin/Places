@@ -21,7 +21,7 @@
     if (self) {
         [self.contentView addSubview:self.messageLabel];
         [self.contentView addSubview:self.userHandleLabel];
-        
+        [self.contentView addSubview:self.timeAgoLabel];
     }
     return self;
 }
@@ -32,13 +32,19 @@
     [self.contentView setNeedsLayout];
     [self.contentView layoutIfNeeded];
     
-    self.userHandleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.userHandleLabel.bounds);
     self.messageLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.messageLabel.bounds);
 }
 
 - (void) updateConstraints {
     if (!self.didSetupConstraints) {
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.userHandleLabel
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1
+                                                                      constant:17]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeAgoLabel
                                                                      attribute:NSLayoutAttributeTop
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self.contentView
@@ -73,6 +79,13 @@
                                                                      attribute:NSLayoutAttributeRight
                                                                     multiplier:1
                                                                       constant:-17]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.timeAgoLabel
+                                                                     attribute:NSLayoutAttributeRight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.messageLabel
+                                                                     attribute:NSLayoutAttributeRight
+                                                                    multiplier:1
+                                                                      constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                      relatedBy:NSLayoutRelationEqual
@@ -88,26 +101,37 @@
     [super updateConstraints];
 }
 
-- (UILabel *)messageLabel {
-    if (!_messageLabel) {
-        _messageLabel = [[UILabel alloc] init];
-        _messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _messageLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _messageLabel.numberOfLines = 5;
-    }
-    return _messageLabel;
-}
-
 - (UILabel *)userHandleLabel {
     if (!_userHandleLabel) {
         _userHandleLabel = [[UILabel alloc] init];
         _userHandleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _userHandleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
         _userHandleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        _userHandleLabel.numberOfLines = 0;
+        _userHandleLabel.numberOfLines = 1;
     }
     return _userHandleLabel;
+}
+
+- (UILabel *)timeAgoLabel {
+    if (!_timeAgoLabel) {
+        _timeAgoLabel = [[UILabel alloc] init];
+        _timeAgoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _timeAgoLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+        _timeAgoLabel.textColor = [UIColor grayColor];
+        _timeAgoLabel.numberOfLines = 1;
+    }
+    return _timeAgoLabel;
+}
+
+- (UILabel *)messageLabel {
+    if (!_messageLabel) {
+        _messageLabel = [[UILabel alloc] init];
+        _messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _messageLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _messageLabel.numberOfLines = 0;
+    }
+    return _messageLabel;
 }
 
 @end

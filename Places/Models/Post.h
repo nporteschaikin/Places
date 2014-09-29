@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) Pin *pin;
+@property (strong, nonatomic) NSDate *createdAt;
 
 + (NSFetchRequest *)fetchRequestForPostsWithinRadius:(double)radius
                                                ofPin:(Pin *)pin;
