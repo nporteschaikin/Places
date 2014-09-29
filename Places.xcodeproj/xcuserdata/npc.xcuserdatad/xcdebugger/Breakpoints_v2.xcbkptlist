@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/Controllers/HerePostsTableViewController.m"
-            timestampString = "433651069.11782"
+            timestampString = "433652807.49149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-updateState"
             landmarkType = "5">
          </BreakpointContent>

@@ -97,12 +97,7 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
         self.navigationItem.title = newPin.name;
     }
     
-    // [[NSUserDefaults standardUserDefaults] setObject:newPin.location forKey:@"HerePostsTableViewControllerLastLocation"];
     [super setPin:newPin];
-}
-
-- (void)setRadius:(double)radius {
-    [super setRadius:radius];
 }
 
 - (void)updateState {

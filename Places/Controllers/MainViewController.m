@@ -9,12 +9,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MainViewController.h"
 #import "HerePostsTableViewController.h"
+#import "FavoritesTableViewController.h"
 #import "CoreDataManager.h"
 
 @interface MainViewController () <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UINavigationController *hereNavigationController;
 @property (strong, nonatomic) HerePostsTableViewController *herePostsTableViewController;
+@property (strong, nonatomic) UINavigationController *favoritesNavigationController;
+@property (strong, nonatomic) FavoritesTableViewController *favoritesTableViewController;
 
 @end
 
@@ -38,9 +41,27 @@
     return _herePostsTableViewController;
 }
 
+- (UINavigationController *)favoritesNavigationController {
+    if (!_favoritesNavigationController) {
+        _favoritesNavigationController = [[UINavigationController alloc] init];
+        _favoritesNavigationController.tabBarItem.title = @"Favorites";
+        [_favoritesNavigationController pushViewController:self.favoritesTableViewController
+                                                  animated:YES];
+    }
+    return _favoritesNavigationController;
+}
+
+- (FavoritesTableViewController *)favoritesTableViewController {
+    if (!_favoritesTableViewController) {
+        _favoritesTableViewController = [[FavoritesTableViewController alloc] init];
+    }
+    return _favoritesTableViewController;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setViewControllers:@[self.hereNavigationController]];
+    [self setViewControllers:@[self.hereNavigationController,
+                               self.favoritesNavigationController]];
 }
 
 

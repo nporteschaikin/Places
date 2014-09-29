@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Favorite" syncable="YES">
+        <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" syncable="YES"/>
+    </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES">
         <attribute name="administrativeArea" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,5 +30,6 @@
         <element name="Pin" positionX="-54" positionY="-9" width="128" height="225"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="User" positionX="-45" positionY="36" width="128" height="60"/>
+        <element name="Favorite" positionX="-54" positionY="81" width="128" height="60"/>
     </elements>
 </model>

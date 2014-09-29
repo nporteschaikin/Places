@@ -26,6 +26,7 @@
 		E47E725C19D735F700666EAE /* HerePostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E47E725B19D735F700666EAE /* HerePostsTableViewController.m */; };
 		E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */; };
 		E4D607E919D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */; };
+		E4D607EC19D903D00044ECF6 /* FavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
 		E4D607E719D8EB7A0044ECF6 /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
 		E4D607E819D8EB7A0044ECF6 /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
+		E4D607EA19D903D00044ECF6 /* FavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesTableViewController.h; sourceTree = "<group>"; };
+		E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +199,8 @@
 				E47E725B19D735F700666EAE /* HerePostsTableViewController.m */,
 				E4D607E419D8BC7B0044ECF6 /* CreatePostViewController.h */,
 				E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */,
+				E4D607EA19D903D00044ECF6 /* FavoritesTableViewController.h */,
+				E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 				TargetAttributes = {
 					4FC89A3519D45B8300F1859A = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = WE35T7942D;
 					};
 					4FC89A4E19D45B8300F1859A = {
 						CreatedOnToolsVersion = 6.0;
@@ -311,6 +317,7 @@
 				4FC89A6E19D45EA600F1859A /* Post.m in Sources */,
 				4FC89A7419D45EB400F1859A /* User.m in Sources */,
 				4FC89A3F19D45B8300F1859A /* AppDelegate.m in Sources */,
+				E4D607EC19D903D00044ECF6 /* FavoritesTableViewController.m in Sources */,
 				4FC89A7D19D4606300F1859A /* PostsTableViewController.m in Sources */,
 				E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */,
 				4FC89A7819D45F3C00F1859A /* MainViewController.m in Sources */,
