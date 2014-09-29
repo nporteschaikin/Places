@@ -33,11 +33,7 @@
 
 - (HerePostsTableViewController *)herePostsTableViewController {
     if (!_herePostsTableViewController) {
-        Pin *pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:-40
-                                                                          longitude:-70]
-                                     inContext:[CoreDataManager managedObjectContext]];
-        _herePostsTableViewController = [[HerePostsTableViewController alloc] initWithPin:pin
-                                                                                   radius:20];
+        _herePostsTableViewController = [[HerePostsTableViewController alloc] initWithState];
     }
     return _herePostsTableViewController;
 }

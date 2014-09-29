@@ -10,6 +10,11 @@
 #import "CreatePostViewController.h"
 #import "CoreDataManager.h"
 
+NSString * const HerePostsTableViewControllerState = @"HerePostsTableViewControllerState";
+NSString * const HerePostsTableViewControllerStateLatitudeKey = @"HerePostsTableViewControllerStateLatitudeKey";
+NSString * const HerePostsTableViewControllerStateLongitudeKey = @"HerePostsTableViewControllerStateLongitudeKey";
+NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableViewControllerStateRadiusKey";
+
 @interface HerePostsTableViewController () <CLLocationManagerDelegate>
 @property (strong, nonatomic, readwrite) CLLocationManager *locationManager;
 @property (strong, nonatomic, readwrite) UINavigationController *createPostNavigationController;
@@ -17,6 +22,17 @@
 @end
 
 @implementation HerePostsTableViewController
+
+- (id)initWithState {
+    if (self = [super init]) {
+        NSDictionary *state = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:HerePostsTableViewControllerState];
+        self.pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLatitudeKey] doubleValue]
+                                                                          longitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLongitudeKey] doubleValue]]
+                                     inContext:[CoreDataManager managedObjectContext]];
+        self.radius = [(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateRadiusKey] doubleValue];
+    }
+    return self;
+}
 
 - (CLLocationManager *)locationManager {
     if (!_locationManager) {
@@ -81,7 +97,20 @@
         self.navigationItem.title = newPin.name;
     }
     
+    // [[NSUserDefaults standardUserDefaults] setObject:newPin.location forKey:@"HerePostsTableViewControllerLastLocation"];
     [super setPin:newPin];
+}
+
+- (void)setRadius:(double)radius {
+    [super setRadius:radius];
+}
+
+- (void)updateState {
+    NSDictionary *newState = @{HerePostsTableViewControllerStateRadiusKey: [NSNumber numberWithDouble:self.radius],
+                               HerePostsTableViewControllerStateLatitudeKey: [NSNumber numberWithDouble:self.pin.latitude],
+                               HerePostsTableViewControllerStateLongitudeKey: [NSNumber numberWithDouble:self.pin.longitude]};
+    [[NSUserDefaults standardUserDefaults] setObject:newState
+                                              forKey:HerePostsTableViewControllerState];
 }
 
 // ================== CLLocationManagerDelegate ==================
@@ -96,6 +125,7 @@
     [pin reverseGeolocateWithCompletionHandler:^{
         self.pin = pin;
         [self reloadData];
+        [self updateState];
     }];
 }
 

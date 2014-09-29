@@ -10,4 +10,6 @@
 
 @interface HerePostsTableViewController : PinPostsTableViewController
 
+- (id)initWithState;
+
 @end

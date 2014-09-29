@@ -24,8 +24,8 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 - (NSFetchRequest *)fetchRequest {
     if (!_fetchRequest) {
         _fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
-        _fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"message"
-                                                                        ascending:YES]];
+        _fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt"
+                                                                        ascending:NO]];
     }
     return _fetchRequest;
 }
