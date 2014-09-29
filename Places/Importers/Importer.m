@@ -30,6 +30,12 @@
     static NSManagedObjectContext *managedObjectContext;
     if (!managedObjectContext) {
         managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        managedObjectContext.persistentStoreCoordinator = [CoreDataManager persistentStoreCoordinator];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(managedObjectContextDidSave:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:managedObjectContext];
     }
     return managedObjectContext;
 }
@@ -48,7 +54,9 @@
 - (void)import {
     [[APIManager sharedManager] GET:self.path params:self.params onComplete:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
-            [self.delegate importer:self didFailToCompleteRequestWithError:error];
+            if ([self.delegate respondsToSelector:@selector(importer:didFailToCompleteRequestWithError:)]) {
+                [self.delegate importer:self didFailToCompleteRequestWithError:error];
+            }
         } else {
             [self didCompleteRequestWithData:data];
         }
@@ -57,11 +65,14 @@
 
 - (void)didCompleteRequestWithData:(NSData *)data {
     NSError *error;
+
     id object = [NSJSONSerialization JSONObjectWithData:data
                                                 options:NSJSONReadingAllowFragments
                                                   error:&error];
     if (error) {
-        [self.delegate importer:self didFailToCompleteRequestWithError:error];
+        if ([self.delegate respondsToSelector:@selector(importer:didFailToCompleteRequestWithError:)]) {
+            [self.delegate importer:self didFailToCompleteRequestWithError:error];
+        }
     } else {
         [self didParseObject:object];
     }
@@ -69,6 +80,7 @@
 
 - (void)didParseObject:(id)object {
     NSString *remotePrimaryKey = [[self class] remotePrimaryKey];
+    NSString *entityPrimaryKey = [[self class] entityPrimaryKey];
     NSDictionary *dictionary;
     NSManagedObject *existingManagedObject;
     if ([object isKindOfClass:[NSDictionary class]]) {
@@ -77,7 +89,9 @@
         existingManagedObject = [[[self class] managedObjectsFromEntityWherePrimaryKeyInArray:@[remotePrimaryKeyValue]] firstObject];
         [self useOrCreateManagedObject:existingManagedObject
                         withDictionary:dictionary];
-        [self.delegate importerDidCompleteSingleImport:self];
+        if ([self.delegate respondsToSelector:@selector(importerDidCompleteSingleImport:)]) {
+            [self.delegate importerDidCompleteSingleImport:self];
+        }
     } else if ([object isKindOfClass:[NSArray class]]) {
         NSArray *collection = (NSArray *)object;
         NSArray *remotePrimaryKeyValues = [collection valueForKey:remotePrimaryKey];
@@ -86,14 +100,21 @@
         NSPredicate *managedObjectsPredicate;
         for (dictionary in collection) {
             remotePrimaryKeyValue = [dictionary valueForKey:remotePrimaryKey];
-            managedObjectsPredicate = [NSPredicate predicateWithFormat:@"%K = %@", remotePrimaryKey, remotePrimaryKeyValue];
+            managedObjectsPredicate = [NSPredicate predicateWithFormat:@"%K = %@", entityPrimaryKey, remotePrimaryKeyValue];
             existingManagedObject = [[managedObjects filteredArrayUsingPredicate:managedObjectsPredicate] firstObject];
             [self useOrCreateManagedObject:existingManagedObject
                             withDictionary:dictionary];
-            [self.delegate importerDidCompleteCollectionImport:self];
+            if ([self.delegate respondsToSelector:@selector(importerDidCompleteCollectionImport:)]) {
+                [self.delegate importerDidCompleteCollectionImport:self];
+            }
         }
     }
-    [self.delegate importerDidCompleteImport:self];
+    NSError *error;
+    [self.managedObjectContext save:&error];
+        NSLog(@"%@", error);
+    if ([self.delegate respondsToSelector:@selector(importerDidCompleteImport:)]) {
+        [self.delegate importerDidCompleteImport:self];
+    }
 }
 
 - (NSManagedObject *)useOrCreateManagedObject:(NSManagedObject *)managedObject
@@ -110,6 +131,11 @@
                          forKey:entityPrimaryKey];
     }
     return managedObject;
+}
+
+- (void)managedObjectContextDidSave:(NSNotification *)notification {
+    NSLog(@"saving...");
+    [[CoreDataManager managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];
 }
 
 @end

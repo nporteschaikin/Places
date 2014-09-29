@@ -12,9 +12,6 @@
 
 @interface PostImporter : Importer
 
-+ (void)importByPin:(Pin *)pin
-             radius:(double)radius;
-
 - (void)importByPin:(Pin *)pin
              radius:(double)radius;
 

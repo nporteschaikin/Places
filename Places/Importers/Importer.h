@@ -12,7 +12,7 @@
 
 @class Importer;
 
-@protocol ImporterDelegate
+@protocol ImporterDelegate <NSObject>
 
 @optional
 - (void)importer:(Importer *)importer didFailToCompleteRequestWithError:(NSError *)error;
