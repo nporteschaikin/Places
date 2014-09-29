@@ -23,13 +23,29 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
 
 @implementation HerePostsTableViewController
 
-- (id)initWithState {
+- (id)init {
     if (self = [super init]) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                              target:self
+                                                                                              action:@selector(addPinToFavorites)];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                                               target:self
+                                                                                               action:@selector(openCreatePostViewController)];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+    return self;
+}
+
+- (id)initWithState {
+    if (self = [self init]) {
         NSDictionary *state = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:HerePostsTableViewControllerState];
-        self.pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLatitudeKey] doubleValue]
-                                                                          longitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLongitudeKey] doubleValue]]
-                                     inContext:[CoreDataManager managedObjectContext]];
-        self.radius = [(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateRadiusKey] doubleValue];
+        if (state) {
+            self.pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLatitudeKey] doubleValue]
+                                                                              longitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLongitudeKey] doubleValue]]
+                                         inContext:[CoreDataManager managedObjectContext]];
+            self.radius = [(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateRadiusKey] doubleValue];
+        }
     }
     return self;
 }
@@ -58,13 +74,6 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
     return _createPostViewController;
 }
 
-- (void)viewDidLoad {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                           target:self
-                                                                                           action:@selector(openCreatePostViewController)];
-    [super viewDidLoad];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.locationManager requestWhenInUseAuthorization];
@@ -77,6 +86,10 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
     [self presentViewController:self.createPostNavigationController
                        animated:YES
                      completion:nil];
+}
+
+- (void)addPinToFavorites {
+    NSLog(@"%@", self.pin);
 }
 
 - (void)setPin:(Pin *)newPin {
@@ -97,6 +110,9 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
         self.navigationItem.title = newPin.name;
     }
     
+    self.navigationItem.leftBarButtonItem.enabled = YES;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+    
     [super setPin:newPin];
 }
 
@@ -106,6 +122,12 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
                                HerePostsTableViewControllerStateLongitudeKey: [NSNumber numberWithDouble:self.pin.longitude]};
     [[NSUserDefaults standardUserDefaults] setObject:newState
                                               forKey:HerePostsTableViewControllerState];
+}
+
+- (void)handleRefreshControl:(id)sender {
+    [self.locationManager startUpdatingLocation];
+#warning this should only trigger super handleRefreshControl: once location is updated and display an error message if location can't be updated (no GPS or no Internet)
+    [super handleRefreshControl:sender];
 }
 
 // ================== CLLocationManagerDelegate ==================

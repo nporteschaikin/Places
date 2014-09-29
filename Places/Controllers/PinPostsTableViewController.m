@@ -13,7 +13,7 @@
 - (id)initWithPin:(Pin *)pin radius:(double)radius {
     if (self = [super init]) {
         self.pin = pin;
-        self.radius = radius;
+        self.radius = radius || 1;
     }
     return self;
 }

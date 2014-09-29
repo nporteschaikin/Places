@@ -16,5 +16,6 @@
 @property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
 - (void)reloadData;
+- (void)handleRefreshControl:(id)sender;
 
 @end

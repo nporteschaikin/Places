@@ -12,7 +12,9 @@
 
 - (NSString *)timeAgo {
     int secondsAgo = fabs((int)[self timeIntervalSinceNow]);
-    if (secondsAgo < 60) {
+    if (secondsAgo < 30) {
+        return @"now";
+    } else if (secondsAgo < 60) {
         return [NSString stringWithFormat:@"%ds", secondsAgo];
     } else if (secondsAgo < 60 * 60) {
         return [NSString stringWithFormat:@"%dm", secondsAgo / 60];

@@ -22,6 +22,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 @implementation PostsTableViewController
 
+
 - (NSFetchRequest *)fetchRequest {
     if (!_fetchRequest) {
         _fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
@@ -45,14 +46,28 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[PostTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     
+    [self setupRefreshControl];
+    
+    [self.tableView registerClass:[PostTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     self.tableView.estimatedRowHeight = 55.0f;
 }
 
 - (void)reloadData {
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
+}
+
+- (void)setupRefreshControl {
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self
+                       action:@selector(handleRefreshControl:)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+}
+
+- (void)handleRefreshControl:(id)sender {
+    [(UIRefreshControl *)sender endRefreshing];
 }
 
 // ================== NSFetchedResultsControllerDelegate ==================

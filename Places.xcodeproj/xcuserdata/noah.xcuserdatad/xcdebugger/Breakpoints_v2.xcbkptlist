@@ -42,13 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/Controllers/PostsTableViewController.h"
-            timestampString = "433372305.659041"
+            timestampString = "433692019.964499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "@interface PostsTableViewController"
-            landmarkType = "2">
+            startingLineNumber = "27"
+            endingLineNumber = "27">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
