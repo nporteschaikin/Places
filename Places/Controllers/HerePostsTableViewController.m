@@ -43,7 +43,7 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
         if (state) {
             self.pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLatitudeKey] doubleValue]
                                                                               longitude:[(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateLongitudeKey] doubleValue]]
-                                         inContext:[CoreDataManager managedObjectContext]];
+                                         inContext:[[CoreDataManager sharedManager] managedObjectContext]];
             self.radius = [(NSNumber *)[state objectForKey:HerePostsTableViewControllerStateRadiusKey] doubleValue];
         }
     }
@@ -127,7 +127,6 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
 - (void)handleRefreshControl:(id)sender {
     [self.locationManager startUpdatingLocation];
 #warning this should only trigger super handleRefreshControl: once location is updated and display an error message if location can't be updated (no GPS or no Internet)
-    self.postImporter.path = @"posts";
     [super handleRefreshControl:sender];
 }
 
@@ -135,15 +134,12 @@ NSString * const HerePostsTableViewControllerStateRadiusKey = @"HerePostsTableVi
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations lastObject];
-    
     [self.locationManager stopUpdatingLocation];
-    
     Pin *pin = [Pin findOrCreateByLocation:location
-                                 inContext:[CoreDataManager managedObjectContext]];
+                                 inContext:[[CoreDataManager sharedManager] managedObjectContext]];
     [pin reverseGeolocateWithCompletionHandler:^{
         self.pin = pin;
-        [self.postImporter importByPin:self.pin
-                                radius:self.radius];
+        [self.postImporter importByPin:self.pin inRadius:self.radius];
         [self reloadData];
         [self updateState];
     }];

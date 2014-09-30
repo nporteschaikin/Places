@@ -36,7 +36,7 @@ static NSString * const reuseIdentifier = @"PostTableViewCell";
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
-                                                                        managedObjectContext:[CoreDataManager managedObjectContext]
+                                                                        managedObjectContext:[[CoreDataManager sharedManager] managedObjectContext]
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
         _fetchedResultsController.delegate = self;

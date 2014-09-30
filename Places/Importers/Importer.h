@@ -27,6 +27,7 @@
 @interface Importer : NSObject
 
 @property (strong, nonatomic) id<ImporterDelegate> delegate;
+@property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic, readwrite) NSString *path;
 @property (strong, nonatomic, readwrite) NSDictionary *params;
 
@@ -35,5 +36,7 @@
 + (NSString *)remotePrimaryKey;
 
 - (void)import;
+- (void)useOrCreateManagedObject:(NSManagedObject *)object
+                  withDictionary:(NSDictionary *)dictionary;
 
 @end

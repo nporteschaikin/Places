@@ -33,7 +33,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[CoreDataManager managedObjectContext] save:NULL];
+    [[[CoreDataManager sharedManager] managedObjectContext] save:NULL];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -45,7 +45,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[CoreDataManager managedObjectContext] save:NULL];
+    [[[CoreDataManager sharedManager] managedObjectContext] save:NULL];
 }
 
 @end

@@ -22,19 +22,28 @@
     return @"id";
 }
 
-- (id)init {
-    if (self = [super init]) {
-        self.path = @"posts";
-    }
-    return self;
-}
-
-- (void)importByPin:(Pin *)pin
-             radius:(double)radius {
+- (void)importByPin:(Pin *)pin inRadius:(double)radius {
+    self.path = @"/posts/in";
     self.params = @{@"latitude": [NSNumber numberWithDouble:pin.latitude],
                     @"longitude": [NSNumber numberWithDouble:pin.longitude],
-                    @"longitude": [NSNumber numberWithDouble:radius]};
+                    @"radius": [NSNumber numberWithDouble:radius]};
     [self import];
 }
+
+- (void)useOrCreateManagedObject:(NSManagedObject *)managedObject
+                  withDictionary:(NSDictionary *)dictionary {
+    [super useOrCreateManagedObject:managedObject
+                     withDictionary:dictionary];
+    Post *mappedObject = (Post *)managedObject;
+    double latitude = [(NSNumber *)dictionary[@"latitude"] doubleValue];
+    double longitude = [(NSNumber *)dictionary[@"longitude"] doubleValue];
+    NSString *message = dictionary[@"message"];
+    mappedObject.message = message;
+    mappedObject.pin = [Pin findOrCreateByLocation:[[CLLocation alloc] initWithLatitude:latitude
+                                                                              longitude:longitude]
+                                         inContext:[[CoreDataManager sharedManager] backgroundManagedObjectContext]];
+}
+
+
 
 @end

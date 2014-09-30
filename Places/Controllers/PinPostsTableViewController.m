@@ -13,9 +13,16 @@
 - (id)initWithPin:(Pin *)pin radius:(double)radius {
     if (self = [super init]) {
         self.pin = pin;
-        self.radius = radius || 1;
+        self.radius = radius;
     }
     return self;
+}
+
+- (double)radius {
+    if (!_radius) {
+        _radius = 1;
+    }
+    return _radius;
 }
 
 - (NSFetchRequest *)fetchRequest {

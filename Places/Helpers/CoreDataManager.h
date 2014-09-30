@@ -11,8 +11,9 @@
 
 @interface CoreDataManager : NSObject
 
-+ (NSManagedObjectContext *)managedObjectContext;
-+ (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
-+ (NSManagedObjectModel *)managedObjectModel;
+@property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic, readonly) NSManagedObjectContext *backgroundManagedObjectContext;
+
++ (CoreDataManager *)sharedManager;
 
 @end

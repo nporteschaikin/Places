@@ -9,7 +9,6 @@
 #import "Importer.h"
 
 @interface Importer ()
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @end
 
 @implementation Importer
@@ -26,21 +25,8 @@
     return nil;
 }
 
-+ (NSManagedObjectContext *)managedObjectContext {
-    static NSManagedObjectContext *managedObjectContext;
-    if (!managedObjectContext) {
-        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        managedObjectContext.persistentStoreCoordinator = [CoreDataManager persistentStoreCoordinator];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(managedObjectContextDidSave:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:managedObjectContext];
-    }
-    return managedObjectContext;
-}
 
-+ (NSArray *)managedObjectsFromEntityWherePrimaryKeyInArray:(NSArray *)array {
+- (NSArray *)managedObjectsFromEntityWherePrimaryKeyInArray:(NSArray *)array {
     NSString *eN = [[self class] entityName];
     NSString *ePK = [[self class] entityPrimaryKey];
     
@@ -48,7 +34,7 @@
     fR.predicate = [NSPredicate predicateWithFormat:@"(%K IN (%@))", ePK, array];
     fR.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:ePK ascending:YES]];
     
-    return [[[self class] managedObjectContext] executeFetchRequest:fR error:nil];
+    return [[[CoreDataManager sharedManager] backgroundManagedObjectContext] executeFetchRequest:fR error:nil];
 }
 
 - (void)import {
@@ -86,7 +72,7 @@
     if ([object isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dictionary = (NSDictionary *)object;
         NSArray *remotePrimaryKeyValue = [dictionary valueForKey:[[self class] remotePrimaryKey]];
-        existingManagedObject = [[[self class] managedObjectsFromEntityWherePrimaryKeyInArray:@[remotePrimaryKeyValue]] firstObject];
+        existingManagedObject = [[self managedObjectsFromEntityWherePrimaryKeyInArray:@[remotePrimaryKeyValue]] firstObject];
         [self useOrCreateManagedObject:existingManagedObject
                         withDictionary:dictionary];
         if ([self.delegate respondsToSelector:@selector(importerDidCompleteSingleImport:)]) {
@@ -95,7 +81,7 @@
     } else if ([object isKindOfClass:[NSArray class]]) {
         NSArray *collection = (NSArray *)object;
         NSArray *remotePrimaryKeyValues = [collection valueForKey:remotePrimaryKey];
-        NSArray *managedObjects = [[self class] managedObjectsFromEntityWherePrimaryKeyInArray:remotePrimaryKeyValues];
+        NSArray *managedObjects = [self managedObjectsFromEntityWherePrimaryKeyInArray:remotePrimaryKeyValues];
         NSString *remotePrimaryKeyValue;
         NSPredicate *managedObjectsPredicate;
         for (dictionary in collection) {
@@ -110,32 +96,30 @@
         }
     }
     NSError *error;
-    [self.managedObjectContext save:&error];
-        NSLog(@"%@", error);
+    [[[CoreDataManager sharedManager] backgroundManagedObjectContext] save:&error];
     if ([self.delegate respondsToSelector:@selector(importerDidCompleteImport:)]) {
         [self.delegate importerDidCompleteImport:self];
     }
 }
 
-- (NSManagedObject *)useOrCreateManagedObject:(NSManagedObject *)managedObject
-                               withDictionary:(NSDictionary *)dictionary {
+- (void)useOrCreateManagedObject:(NSManagedObject *)managedObject
+                  withDictionary:(NSDictionary *)dictionary {
     NSString *remotePrimaryKey = [[self class] remotePrimaryKey];
     NSString *entityPrimaryKey = [[self class] entityPrimaryKey];
     NSString *entityName = [[self class] entityName];
-    NSManagedObjectContext *managedObjectContext = [[self class] managedObjectContext];
     if (!managedObject) {
         id remotePrimaryKeyValue = [dictionary valueForKey:remotePrimaryKey];
         managedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName
-                                                      inManagedObjectContext:managedObjectContext];
+                                                      inManagedObjectContext:[[CoreDataManager sharedManager] backgroundManagedObjectContext]];
         [managedObject setValue:remotePrimaryKeyValue
                          forKey:entityPrimaryKey];
     }
-    return managedObject;
 }
 
 - (void)managedObjectContextDidSave:(NSNotification *)notification {
-    NSLog(@"saving...");
-    [[CoreDataManager managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];
+    @synchronized(self) {
+        NSLog(@"asdf");
+    }
 }
 
 @end
