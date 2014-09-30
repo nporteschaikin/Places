@@ -25,7 +25,6 @@
     return nil;
 }
 
-
 - (NSArray *)managedObjectsFromEntityWherePrimaryKeyInArray:(NSArray *)array {
     NSString *eN = [[self class] entityName];
     NSString *ePK = [[self class] entityPrimaryKey];

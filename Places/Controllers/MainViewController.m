@@ -36,7 +36,7 @@
 
 - (HerePostsTableViewController *)herePostsTableViewController {
     if (!_herePostsTableViewController) {
-        _herePostsTableViewController = [[HerePostsTableViewController alloc] initWithState];
+        _herePostsTableViewController = [[HerePostsTableViewController alloc] init];
     }
     return _herePostsTableViewController;
 }

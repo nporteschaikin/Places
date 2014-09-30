@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/Controllers/PostsTableViewController.h"
-            timestampString = "433715600.996189"
+            timestampString = "433796918.337796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29">
+            startingLineNumber = "24"
+            endingLineNumber = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Places/Helpers/APIManager.m"
-            timestampString = "433704847.547725"
+            timestampString = "433774764.176655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
@@ -94,6 +94,22 @@
             startingLineNumber = "123"
             endingLineNumber = "123"
             landmarkName = "@implementation Import"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Places/Controllers/FetchRequestTableViewController.m"
+            timestampString = "433806569.193665"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "@implementation FetchRequestTableViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

@@ -6,6 +6,7 @@
     <entity name="Pin" representedClassName="Pin" syncable="YES">
         <attribute name="administrativeArea" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isReverseGeocoded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="locality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -29,7 +30,7 @@
     </entity>
     <elements>
         <element name="Favorite" positionX="-54" positionY="81" width="128" height="60"/>
-        <element name="Pin" positionX="-54" positionY="-9" width="128" height="225"/>
+        <element name="Pin" positionX="-54" positionY="-9" width="128" height="240"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="User" positionX="-45" positionY="36" width="128" height="60"/>
     </elements>

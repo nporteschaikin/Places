@@ -10,6 +10,7 @@
 		4F737D9F19D9B65F0003A695 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F737D9E19D9B65F0003A695 /* APIManager.m */; };
 		4F737DAF19D9E6770003A695 /* Importer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F737DAE19D9E6770003A695 /* Importer.m */; };
 		4F737DB219D9F7340003A695 /* PostImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F737DB119D9F7340003A695 /* PostImporter.m */; };
+		4FAFB30D19DB25F8005B96C3 /* FetchRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAFB30C19DB25F8005B96C3 /* FetchRequestTableViewController.m */; };
 		4FC89A3C19D45B8300F1859A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A3B19D45B8300F1859A /* main.m */; };
 		4FC89A3F19D45B8300F1859A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC89A3E19D45B8300F1859A /* AppDelegate.m */; };
 		4FC89A4719D45B8300F1859A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC89A4619D45B8300F1859A /* Images.xcassets */; };
@@ -50,6 +51,8 @@
 		4F737DAE19D9E6770003A695 /* Importer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Importer.m; sourceTree = "<group>"; };
 		4F737DB019D9F7340003A695 /* PostImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostImporter.h; sourceTree = "<group>"; };
 		4F737DB119D9F7340003A695 /* PostImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImporter.m; sourceTree = "<group>"; };
+		4FAFB30B19DB25F8005B96C3 /* FetchRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchRequestTableViewController.h; sourceTree = "<group>"; };
+		4FAFB30C19DB25F8005B96C3 /* FetchRequestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchRequestTableViewController.m; sourceTree = "<group>"; };
 		4FC89A3619D45B8300F1859A /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC89A3A19D45B8300F1859A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FC89A3B19D45B8300F1859A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				E4D607E519D8BC7B0044ECF6 /* CreatePostViewController.m */,
 				E4D607EA19D903D00044ECF6 /* FavoritesTableViewController.h */,
 				E4D607EB19D903D00044ECF6 /* FavoritesTableViewController.m */,
+				4FAFB30B19DB25F8005B96C3 /* FetchRequestTableViewController.h */,
+				4FAFB30C19DB25F8005B96C3 /* FetchRequestTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 				E4D607E619D8BC7B0044ECF6 /* CreatePostViewController.m in Sources */,
 				4FC89A7819D45F3C00F1859A /* MainViewController.m in Sources */,
 				4FC89A3C19D45B8300F1859A /* main.m in Sources */,
+				4FAFB30D19DB25F8005B96C3 /* FetchRequestTableViewController.m in Sources */,
 				4F737DAF19D9E6770003A695 /* Importer.m in Sources */,
 				4FC89A7119D45EAE00F1859A /* Pin.m in Sources */,
 				4FC89A6B19D45DBA00F1859A /* CoreDataManager.m in Sources */,

@@ -9,7 +9,8 @@
 #import <CoreData/CoreData.h>
 #import "APIManager.h"
 
-static NSString * const API_BASE_URL = @"http://places-api.herokuapp.com";
+// static NSString * const API_BASE_URL = @"http://places-api.herokuapp.com";
+static NSString * const API_BASE_URL = @"http://localhost:3000";
 
 @interface APIManager () {
     NSOperationQueue *operationQueue;

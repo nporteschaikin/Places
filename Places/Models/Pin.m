@@ -21,11 +21,13 @@
 @property (strong, nonatomic, readwrite) NSString *country;
 @property (strong, nonatomic, readwrite) NSString *name;
 @property (strong, nonatomic, readwrite) NSString *postalCode;
+@property (nonatomic, readwrite) BOOL isReverseGeocoded;
 
 @end
 
 @implementation Pin
 
+@synthesize delegate;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic locality;
@@ -37,6 +39,7 @@
 @dynamic country;
 @dynamic name;
 @dynamic postalCode;
+@dynamic isReverseGeocoded;
 
 + (Pin *)findOrCreateByLocation:(CLLocation *)location
                       inContext:(NSManagedObjectContext *)managedObjectContext {
@@ -44,8 +47,7 @@
     float longitude = location.coordinate.longitude;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Pin"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"%K = %f AND %K = %f",
-                              @"latitude", latitude, @"longitude", longitude];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"%K = %f AND %K = %f", @"latitude", latitude, @"longitude", longitude];
     Pin *pin = [[managedObjectContext executeFetchRequest:fetchRequest
                                                     error:NULL] firstObject];
     if (!pin) {
@@ -57,15 +59,6 @@
         [managedObjectContext insertObject:pin];
     }
     
-    return pin;
-}
-
-+ (Pin *)findOrCreateByLocation:(CLLocation *)location
-                      inContext:(NSManagedObjectContext *)managedObjectContext
-andReverseGeolocateWithCompletionHandler:(void (^)())completionHandler {
-    Pin *pin = [self findOrCreateByLocation:location
-                                  inContext:managedObjectContext];
-    [pin reverseGeolocateWithCompletionHandler:completionHandler];
     return pin;
 }
 
@@ -83,31 +76,32 @@ andReverseGeolocateWithCompletionHandler:(void (^)())completionHandler {
     return location;
 }
 
-- (void)reverseGeolocateWithCompletionHandler:(void (^)())completionHandler {
-    if (self.country) {
-        completionHandler();
-    } else {
-        [[[CLGeocoder alloc] init] reverseGeocodeLocation:self.location
-                                        completionHandler:[self setPlacemarkWithCompletionHandler:completionHandler]];
+- (void)reverseGeolocate {
+    if (!self.isReverseGeocoded) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:self.location
+                       completionHandler:^(NSArray *placemarks, NSError *error) {
+                           CLPlacemark *placemark = [placemarks firstObject];
+                           self.isReverseGeocoded = YES;
+                           [self setDetailsWithPlacemark:placemark];
+                           if ([self.delegate respondsToSelector:@selector(pinDidReverseGeolocate:)]) {
+                               [self.delegate pinDidReverseGeolocate:self];
+                           }
+                       }];
+    } else if ([self.delegate respondsToSelector:@selector(pinDidReverseGeolocate:)]) {
+        [self.delegate pinDidReverseGeolocate:self];
     }
 }
 
-- (void(^)(NSArray *placemarks, NSError *error))setPlacemarkWithCompletionHandler:(void (^)())completionHandler {
-    return ^(NSArray *placemarks, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(),^ {
-            CLPlacemark *placemark = [placemarks firstObject];
-            self.locality = placemark.locality;
-            self.subLocality = placemark.subLocality;
-            self.thoroughfare = placemark.thoroughfare;
-            self.subThoroughfare = placemark.subThoroughfare;
-            self.administrativeArea = placemark.administrativeArea;
-            self.subAdministrativeArea = placemark.subAdministrativeArea;
-            self.country = placemark.country;
-            self.name = placemark.name;
-            self.postalCode = placemark.postalCode;
-            completionHandler();
-        });
-    };
+- (void)setDetailsWithPlacemark:(CLPlacemark *)placemark {
+    self.locality = placemark.locality;
+    self.subLocality = placemark.subLocality;
+    self.thoroughfare = placemark.thoroughfare;
+    self.subThoroughfare = placemark.subThoroughfare;
+    self.administrativeArea = placemark.administrativeArea;
+    self.subAdministrativeArea = placemark.subAdministrativeArea;
+    self.country = placemark.country;
+    self.name = placemark.name;
+    self.postalCode = placemark.postalCode;
 }
-
 @end

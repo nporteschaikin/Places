@@ -15,6 +15,4 @@
 @property (strong, nonatomic, readwrite) Pin *pin;
 @property (nonatomic, readwrite) double radius;
 
-- (id)initWithPin:(Pin *)pin radius:(double)radius;
-
 @end

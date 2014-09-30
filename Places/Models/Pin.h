@@ -9,8 +9,17 @@
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class Pin;
+
+@protocol PinDelegate <NSObject>
+
+- (void)pinDidReverseGeolocate:(Pin *)pin;
+
+@end
+
 @interface Pin : NSManagedObject
 
+@property (strong, nonatomic) id<PinDelegate> delegate;
 @property (nonatomic, readonly) float latitude;
 @property (nonatomic, readonly) float longitude;
 @property (nonatomic, readonly) CLLocation *location;
@@ -23,12 +32,10 @@
 @property (strong, nonatomic, readonly) NSString *country;
 @property (strong, nonatomic, readonly) NSString *name;
 @property (strong, nonatomic, readonly) NSString *postalCode;
+@property (nonatomic, readonly) BOOL isReverseGeocoded;
 
 + (Pin *)findOrCreateByLocation:(CLLocation *)location
                       inContext:(NSManagedObjectContext *)managedObjectContext;
-+ (Pin *)findOrCreateByLocation:(CLLocation *)location
-                      inContext:(NSManagedObjectContext *)managedObjectContext
-andReverseGeolocateWithCompletionHandler:(void (^)())completionHandler;
-- (void)reverseGeolocateWithCompletionHandler:(void (^)())completionHandler;
+- (void)reverseGeolocate;
 
 @end
